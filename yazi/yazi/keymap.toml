@@ -1,0 +1,148 @@
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[mgr]
+prepend_keymap = [
+	{ on = "<Esc>",                  run = "escape --all",                                       desc = "Exit visual mode, clear selection, or cancel search" },
+	{ on = "q",                      run = "quit",                                               desc = "Quit the process" },
+	{ on = "<C-c>",                  run = "close",                                              desc = "Close the current tab, or quit if it's last" },
+	{ on = "<C-z>",                  run = "noop",                                               desc = "noop" },
+
+  { on = "J",                      run = "arrow 5",                                            desc = "Move cursor down 5 lines" },
+  { on = "K",                      run = "arrow -5",                                           desc = "Move cursor up 5 lines" },
+
+  # Navigation
+  { on = "l",                      run = "plugin smart-enter",                                 desc = "Enter child dir or open file" },
+
+  { on = "<C-o>",                  run = "back",                                               desc = "Back to the parent directory" },
+  { on = "<C-i>",                  run = "forward",                                            desc = "Forward to next directory" },
+
+  # Toggle
+  { on = "v",                      run = [ "toggle", "arrow 1" ],                              desc = "Toggle the current selection state" },
+
+  # Visual mode
+  { on = "V",                      run = "visual_mode",                                        desc = "Enter visual mode (selection mode)" },
+  { on = [ "u", "v" ],             run = "visual_mode --unset",                                desc = "Enter visual mode (unset mode)" },
+
+  # Operation
+  { on = "o",                      run = "open --interactive",                                 desc = "Open selected files interactively" },
+
+  { on = [ "y", "y" ],             run = "yank",                                               desc = "Yank selected files" },
+  { on = [ "d", "d" ],             run = "yank --cut",                                         desc = "Cut selected files" },
+  { on = [ "p", "p" ],             run = "paste",                                              desc = "Paste yanked files" },
+
+  { on = [ "u", "y" ],             run = "unyank",                                             desc = "Cancel the yank status" },
+  { on = "D",                      run = "shell 'trash-put \"$@\"'",                           desc = "Trash selected files" },
+
+  { on = "r",                      run = "rename --cursor=before_ext",                         desc = "Rename selected file(s)" },
+  { on = "R",                      run = "rename --cursor=after_ext",                          desc = "Rename selected file(s)" },
+
+  # Copy
+  { on = [ "y", "p" ],             run = "copy path",                                          desc = "Copy file path" },
+  { on = [ "y", "n" ],             run = "copy filename",                                      desc = "Copy filename" },
+  { on = [ "y", "N" ],             run = "copy name_without_ext",                              desc = "Copy filename without extension" },
+
+  # Tabs
+  { on = [ "<C-t>"  ],             run = "tab_create --current",                               desc = "Create new tab" },
+  { on = [ "<C-w>", "n" ],         run = "tab_create --current",                               desc = "Create new tab" },
+  { on = [ "<C-w>", "1" ],         run = "tab_switch 0",                                       desc = "Switch to 1st tab" },
+  { on = [ "<C-w>", "2" ],         run = "tab_switch 1",                                       desc = "Switch to 2nd tab" },
+  { on = [ "<C-w>", "3" ],         run = "tab_switch 2",                                       desc = "Switch to 3rd tab" },
+  { on = [ "<C-w>", "4" ],         run = "tab_switch 3",                                       desc = "Switch to 4th tab" },
+  { on = [ "<C-w>", "5" ],         run = "tab_switch 4",                                       desc = "Switch to 5th tab" },
+  { on = [ "<C-w>", "6" ],         run = "tab_switch 5",                                       desc = "Switch to 6th tab" },
+  { on = [ "<C-w>", "7" ],         run = "tab_switch 6",                                       desc = "Switch to 7th tab" },
+  { on = [ "<C-w>", "8" ],         run = "tab_switch 7",                                       desc = "Switch to 8th tab" },
+  { on = [ "<C-w>", "9" ],         run = "tab_switch 8",                                       desc = "Switch to 9th tab" },
+  { on = [ "<C-w>", "c" ],         run = "close",                                              desc = "Close current tab, or quit if it's last" },
+  { on = [ "<C-w>", "h" ],         run = "tab_switch -1 --relative",                           desc = "Switch to previous tab" },
+  { on = [ "<C-w>", "l" ],         run = "tab_switch 1 --relative",                            desc = "Switch to next tab" },
+
+  # Tasks
+  { on = [ "<Space>", "t" ],       run = "tasks:show",                                         desc = "Show tasks manager" },
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Search                                                   │
+# ╰──────────────────────────────────────────────────────────╯
+  { on = "f",                      run = "plugin search 'fzf_content'",                        desc = "Find contents (Fuzzy)" },
+
+  { on = [ "<C-f>" ],              run = "plugin search 'fzf_filename'",                       desc = "Find filenames (Fuzzy)" },
+  { on = [ "z", "<C-f>" ],         run = "search --via=fd",                                    desc = "Find filenames (flat)" },
+
+  { on = "F",                      run = "plugin search 'ripgrep_content'",                    desc = "Find contents (rg)" },
+  { on = [ "z", "F" ],             run = "search --via=rg",                                    desc = "Find contents (flat)" },
+
+  # Filter
+  { on = [ "z", "/" ],             run = "filter --smart",                                     desc = "Filter files" },
+  { on = [ "z", "f" ],             run = "plugin search 'fzf_locate'",                         desc = "Find filenames globally" },
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ General                                                  │
+# ╰──────────────────────────────────────────────────────────╯
+  { on = "<C-g>",     run = "plugin zoxide",                                        desc = "Run zoxide" },
+  { on = "<C-q>",     run = "shell --block lazygit",                                desc = "Run lazygit" },
+  { on = "s",         run = "plugin searchjump",                                    desc = "Jump to char" },
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ <Space>                                                  │
+# ╰──────────────────────────────────────────────────────────╯
+  { on = [ "<Space>", "m" ],       run = "plugin toggle-pane max-preview",                                     desc = "Maximize or restore the preview pane" },
+  { on = [ "<Space>", "r" ],       run = "shell 'ripdrag --all-compact --and-exit \"$@\"'",                    desc = "Drag and Drop selected files" },
+  { on = [ "<Space>", "q" ],       run = "quit",                                                               desc = "Exit the process" },
+
+  { on = [ "<Space>", "X" ],       run = "plugin chmod",                                                       desc = "chmod on selected files" },
+
+  { on = [ "<Space>", "p" ],       run = "shell 'pinta \"$0\"'",                                               desc = "pinta selected file" },
+
+  { on = [ "<Space>", "o", "c" ],  run = "shell 'ouch compress \"$@\" archive.zip'",                           desc = "Compress selected files" },
+  { on = [ "<Space>", "o", "d" ],  run = "shell 'ouch decompress \"$@\"'",                                     desc = "Decompress selected files" },
+
+# ╭──────────────────────────────────────────────────────────╮
+# │ Goto                                                     │
+# ╰──────────────────────────────────────────────────────────╯
+  { on = [ "g", "v" ],       run = "cd ~/Videos",                                    desc = "Go to Videos" },
+  { on = [ "g", "t" ],       run = "cd ~/Temp",                                      desc = "Go to Temp" },
+  { on = [ "g", "r" ],       run = "cd ~/repos",                                     desc = "Go to repo" },
+  { on = [ "g", "x" ],       run = "cd ~/Cloud/",                                    desc = "Go to Cloud" },
+  { on = [ "g", "s" ],       run = "cd ~/Screenshots/",                              desc = "Go to Screenshots" },
+
+  { on = [ "g", "?" ],       run = "help",                                           desc = "Open help" },
+]
+
+[tasks]
+prepend_keymap = [
+  { on = [ "q" ],            run = "close",          desc = "Close task manager" },
+  { on = [ "g", "?" ],       run = "help",           desc = "Open help" }
+]
+
+[spot]
+prepend_keymap = [
+  { on = [ "y", "y" ],       run = "copy cell",      desc = "Copy selected cell" },
+  { on = [ "g", "?" ],       run = "help",           desc = "Open help" }
+]
+
+[pick]
+prepend_keymap = [
+  { on = [ "g", "?" ], run = "help",                 desc = "Open help" }
+]
+
+[input]
+prepend_keymap = [
+  { on = [ "g", "?" ],    run = "help",              desc = "Open help" },
+]
+
+[confirm]
+prepend_keymap = [
+  { on = ["g", "?"],    run = "help",                desc = "Open help" },
+]
+
+[cmp]
+prepend_keymap = [
+  { on = "<Esc>",       run = "close",               desc = "Cancel completion" },
+  { on = [ "g", "?" ],  run = "help",                desc = "Open help" }
+]
+
+[help]
+prepend_keymap = [
+  { on = "q",         run = "close",                 desc = "Hide the help" },
+  { on = "/",         run = "filter",                desc = "Filter help items" },
+]

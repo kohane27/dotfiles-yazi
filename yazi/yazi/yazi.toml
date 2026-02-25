@@ -1,0 +1,31 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[mgr]
+ratio          = [ 0, 4, 4 ]
+sort_by        = "natural"
+linemode       = "size"
+show_hidden    = true
+
+[preview]
+max_width       = 1920
+max_height      = 1080
+
+[opener]
+mpv = [
+    { run = 'mpv "$@"', block = true }
+]
+
+[open]
+prepend_rules = [
+  { url = "*.srt", use = "edit" },
+  { url = "*.mp3", use = "mpv" },
+]
+
+[plugin]
+prepend_previewers = [
+    { mime = "video/*",  run = "noop" },
+
+    { url = "*.tar*",    run = 'piper --format=url -- tar tf "$1"' },
+    { url = "*.csv",     run = 'piper -- bat -p --color=always "$1"' },
+    { url = "*.md",      run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+]
